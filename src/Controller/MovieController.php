@@ -20,17 +20,17 @@ class MovieController extends AbstractController
      */
     public function getItem(int $id): Response
     {
-        $book = $this->entityManager->getRepository(Movie::class)->find($id);
+        $movie = $this->entityManager->getRepository(Movie::class)->find($id);
 
 
-        if (!$book) {
+        if (!$movie) {
             throw $this->createNotFoundException('Movie not found');
         }
 
         $data = [
-            'id' => $book->getId(),
-            'nameCinema' => $book->getNameCinema(),
-            'nameMovie' => $book->getNameMovie(),
+            'id' => $movie->getId(),
+            'nameCinema' => $movie->getNameCinema(),
+            'nameMovie' => $movie->getNameMovie(),
         ];
 
         return $this->json($data);
