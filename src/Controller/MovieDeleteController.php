@@ -23,13 +23,13 @@ class MovieDeleteController extends AbstractController
      */
     public function delete(int $id): Response
     {
-        $book = $this->entityManager->getRepository(Movie::class)->find($id);
+        $movie = $this->entityManager->getRepository(Movie::class)->find($id);
 
-        if (!$book) {
+        if (!$movie) {
             throw $this->createNotFoundException('Movie not found');
         }
 
-        $this->entityManager->remove($book);
+        $this->entityManager->remove($movie);
         $this->entityManager->flush();
 
         return $this->json(['message' => 'Movie deleted']);
