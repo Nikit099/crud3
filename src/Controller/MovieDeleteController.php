@@ -19,7 +19,7 @@ class MovieDeleteController extends AbstractController
     }
 
     /**
-     * @Route("/deletebook/{id}", methods={"DELETE"})
+     * @Route("/deletemovie/{id}", methods={"DELETE"})
      */
     public function delete(int $id): Response
     {
