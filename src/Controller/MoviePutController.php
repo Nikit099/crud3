@@ -12,14 +12,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class MoviePutController extends AbstractController
 {
 
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
-
-
     /**
      * @Route("/updatemovie/{id}", methods={"PUT"})
      */
@@ -28,19 +26,19 @@ class MoviePutController extends AbstractController
         $movie = $this->entityManager->getRepository(Movie::class)->find($id);
 
         if (!$movie) {
-            throw $this->createNotFoundException('No movie found for id ' . $id);
+            throw $this->createNotFoundException('Нет такого фильма с id ' . $id);
         }
 
         $data = json_decode($request->getContent(), true);
 
-        if (isset($data['nameMovie'])) {
-            $movie->setnNmeMovie($data['nameMovie']);
-        }
+        $nameCinema = isset($data['nameCinema']) ? $data['nameCinema'] : null;
+        $nameMovie = isset($data['nameMovie']) ? $data['nameMovie'] : null;
 
-        if (isset($data['nameCinema'])) {
-            $movie->setNameCinema($data['nameCinema']);
-        }
+        $movie->setNameCinema($nameCinema);
+        $movie->setNameMovie($nameMovie);
+
         $this->entityManager->flush();
+
         return $this->json(['id' => $movie->getId()]);
     }
 

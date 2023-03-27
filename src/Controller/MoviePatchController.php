@@ -2,16 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Movie;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Movie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MoviePatchController extends AbstractController
 {
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -23,24 +23,24 @@ class MoviePatchController extends AbstractController
      */
     public function patch(Request $request, int $id): Response
     {
-        $movie = $this->entityManager->getRepository(Movie::class)->find($id);
+        $book = $this->entityManager->getRepository(Movie::class)->find($id);
 
-        if (!$movie) {
-            return $this->json(['error' => 'Movie not found'], Response::HTTP_NOT_FOUND);
+        if (!$book) {
+            throw $this->createNotFoundException('Нет такого фильма с id ' . $id);
         }
 
         $data = json_decode($request->getContent(), true);
 
         if (isset($data['nameCinema'])) {
-            $movie->setNameCinema($data['nameCinema']);
+            $book->setNameCinema($data['nameCinema']);
         }
 
         if (isset($data['nameMovie'])) {
-            $movie->setNameMovie($data['nameMovie']);
+            $book->setNameMovie($data['nameMovie']);
         }
 
         $this->entityManager->flush();
 
-        return $this->json(['message' => 'Movie updated successfully']);
+        return $this->json(['message' => 'Фильмы обновлены']);
     }
 }
