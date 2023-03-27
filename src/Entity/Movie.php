@@ -3,11 +3,11 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\BookRepository;
+use App\Repository\MovieRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ApiResource]
-#[ORM\Entity(repositoryClass: BookRepository::class)]
+#[ORM\Entity(repositoryClass: MovieRepository::class)]
 class Movie
 {
     #[ORM\Id]
