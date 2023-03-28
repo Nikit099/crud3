@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Controller;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Movie;
+use App\Entity\Man;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MovieController extends AbstractController
+class ManController extends AbstractController
 {
     private $entityManager;
 
@@ -16,21 +17,21 @@ class MovieController extends AbstractController
         $this->entityManager = $entityManager;
     }
     /**
-     * @Route("/getmovie/{id}", methods={"GET"})
+     * @Route("/getman/{id}", methods={"GET"})
      */
     public function getItem(int $id): Response
     {
-        $movie = $this->entityManager->getRepository(Movie::class)->find($id);
+        $man = $this->entityManager->getRepository(Man::class)->find($id);
 
 
-        if (!$movie) {
-            throw $this->createNotFoundException('Movie not found');
+        if (!$man) {
+            throw $this->createNotFoundException('Man not found');
         }
 
         $data = [
-            'id' => $movie->getId(),
-            'nameCinema' => $movie->getNameCinema(),
-            'nameMovie' => $movie->getNameMovie(),
+            'id' => $man->getId(),
+            'nameCinema' => $man->getNameCinema(),
+            'nameMan' => $man->getNameMan(),
         ];
 
         return $this->json($data);

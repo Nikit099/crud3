@@ -4,12 +4,12 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Movie;
+use App\Entity\Man;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MoviePatchController extends AbstractController
+class ManPatchController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
 
@@ -19,28 +19,28 @@ class MoviePatchController extends AbstractController
     }
 
     /**
-     * @Route("/patchmovie/{id}", methods={"PATCH"})
+     * @Route("/patchman/{id}", methods={"PATCH"})
      */
     public function patch(Request $request, int $id): Response
     {
-        $book = $this->entityManager->getRepository(Movie::class)->find($id);
+        $man = $this->entityManager->getRepository(Man::class)->find($id);
 
-        if (!$book) {
-            throw $this->createNotFoundException('Нет такого фильма с id ' . $id);
+        if (!$man) {
+            throw $this->createNotFoundException('Мужчины с такой штучкой id нет ' . $id);
         }
 
         $data = json_decode($request->getContent(), true);
 
-        if (isset($data['nameCinema'])) {
-            $book->setNameCinema($data['nameCinema']);
+        if (isset($data['size'])) {
+            $man->setSize($data['size']);
         }
 
-        if (isset($data['nameMovie'])) {
-            $book->setNameMovie($data['nameMovie']);
+        if (isset($data['strong'])) {
+            $man->setStrong($data['strong']);
         }
 
         $this->entityManager->flush();
 
-        return $this->json(['message' => 'Фильмы обновлены']);
+        return $this->json(['message' => 'Произошло обновление Мужчин']);
     }
 }

@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Movie;
+use App\Entity\Man;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MovieDeleteController extends AbstractController
+class ManDeleteController extends AbstractController
 {
 
     private $entityManager;
@@ -19,19 +19,19 @@ class MovieDeleteController extends AbstractController
     }
 
     /**
-     * @Route("/deletemovie/{id}", methods={"DELETE"})
+     * @Route("/deleteman/{id}", methods={"DELETE"})
      */
     public function delete(int $id): Response
     {
-        $movie = $this->entityManager->getRepository(Movie::class)->find($id);
+        $man = $this->entityManager->getRepository(Man::class)->find($id);
 
-        if (!$movie) {
-            throw $this->createNotFoundException('Movie not found');
+        if (!$man) {
+            throw $this->createNotFoundException('Man not found');
         }
 
-        $this->entityManager->remove($movie);
+        $this->entityManager->remove($man);
         $this->entityManager->flush();
 
-        return $this->json(['message' => 'Movie deleted']);
+        return $this->json(['message' => 'Man deleted']);
     }
 }

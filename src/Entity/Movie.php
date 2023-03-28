@@ -3,12 +3,12 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Repository\MovieRepository;
+use App\Repository\ManRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ApiResource]
-#[ORM\Entity(repositoryClass: MovieRepository::class)]
-class Movie
+#[ORM\Entity(repositoryClass: ManRepository::class)]
+class Man
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,10 +16,10 @@ class Movie
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $nameCinema = null;
+    private ?string $size = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $nameMovie = null;
+    private ?string $strong = null;
 
     /**
      * @return int|null
@@ -40,35 +40,32 @@ class Movie
     /**
      * @return string|null
      */
-    public function getNameCinema(): ?string
+    public function getSize(): ?string
     {
-        return $this->nameCinema;
+        return $this->size;
     }
 
     /**
-     * @param string|null $nameCinema
+     * @param string|null $size
      */
-    public function setNameCinema(?string $nameCinema): void
+    public function setSize(?string $size): void
     {
-        $this->nameCinema = $nameCinema;
+        $this->size = $size;
     }
 
     /**
      * @return string|null
      */
-    public function getNameMovie(): ?string
+    public function getStrong(): ?string
     {
-        return $this->nameMovie;
+        return $this->strong;
     }
 
     /**
-     * @param string|null $nameMovie
+     * @param string|null $strong
      */
-    public function setNameMovie(?string $nameMovie): void
+    public function setStrong(?string $strong): void
     {
-        $this->nameMovie = $nameMovie;
+        $this->strong = $strong;
     }
-
-
-
 }
